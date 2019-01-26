@@ -13,6 +13,7 @@
 #
 
 import net, strutils, os
+import nativesockets
 
 ##Constant Values, Types and Exports
 type
@@ -169,14 +170,15 @@ proc nmapScan*(host: string, port: int,
      echo host & " " & ErrorMsg &  " on " & sPort
 
 proc nmapHostDisc*(): (string) {.discardable.} =
-   var v = 0
-   for v in countup(0, 255):
+   var v = 1
+   for v in countup(1, 255):
       let localWlan = replace(localWlan, "x", $v)
       echo "Router: " & localWlan
       try:
          var sock = newSocket(IPv4, STREAM, TCP)
          sock.connect(localWlan, Port(HTTP), 350 * 1)
          let router = localWlan & "/24"
+         echo getHosyByName(localWlan)
          hostDisc.add(localWlan)
          sock.close()
          try:
