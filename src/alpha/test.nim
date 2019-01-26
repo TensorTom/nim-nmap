@@ -13,5 +13,5 @@ for v in countup(1, 255):
     sock.close()
   except:
     let errorMsg = getCurrentExceptionMsg()
-    echo localNet & errorMsg
+    echo localNet & ": " & errorMsg
     continue
