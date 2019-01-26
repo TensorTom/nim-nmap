@@ -1,3 +1,5 @@
+import nativesockets, net, strutils, os
+
 let lan = "192.168.0.x"
 var v = 1
 for v in countup(1, 255):
