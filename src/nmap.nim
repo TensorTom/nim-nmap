@@ -178,7 +178,7 @@ proc nmapHostDisc*(): (string) {.discardable.} =
          var sock = newSocket(IPv4, STREAM, TCP)
          sock.connect(localWlan, Port(HTTP), 350 * 1)
          let router = localWlan & "/24"
-         echo getHosyByName(localWlan)
+         echo getHostByName(localWlan)
          hostDisc.add(localWlan)
          sock.close()
          try:
