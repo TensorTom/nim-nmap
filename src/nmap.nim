@@ -152,9 +152,9 @@ proc nmapScan*(host: string, port: int,
    try:
       if pType == UDP:
          var sock = newSocket()
-         discard sock.sendTo(host, Port(port), "status\n")
-         let recPacket = sock.recvLine(1024)#TODO Work on sending and receiving data from Packets
-         echo sizeOf(recPacket)#TODO
+#         discard sock.sendTo(host, Port(port), "status\n")
+#         let recPacket = sock.recvLine(1024)#TODO Work on sending and receiving data from Packets
+#         echo sizeOf(recPacket)#TODO
       else:
          var sock = newSocket(dType, sType, pType)#Allow control over Domain, SockType, and Protocol
          sock.connect(host, Port(port))
