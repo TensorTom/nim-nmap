@@ -6,4 +6,4 @@ description   = "a Pure Nmap implementation library for Nim"
 license       = "MIT"
 
 [Deps]
-Requires: "nim >= 0.16.0"
+Requires: "nim >= 0.19.0"
