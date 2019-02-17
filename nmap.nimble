@@ -12,4 +12,3 @@ srcDir        = "src"
 
 [Deps]
 requires "nim >= 0.19.0"
-requires "fab >= 0.4.3"
