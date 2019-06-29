@@ -120,15 +120,15 @@ proc createMask*(host: string): string {.discardable.} =
       inc(i)
 
 #This proc is standard connect
-proc nmapScan*(host: string, port: int): string =
+proc nmapScan*(host: string, port: int): string {.discardable.} =
    if port == 0:
       for m in portList:
          try:
             var sock = newSocket(IPv4, STREAM, TCP)
             sock.connect(host, Port(m), 100 * 1)
             let sPort = intToStr(m)
-            return host & " Connected succesfully on " & sPort
             sock.close()
+            return host & " Connected succesfully on " & sPort
          except:
             let ErrorMsg = getCurrentExceptionMsg()
             let sPort = intToStr(m)
@@ -148,7 +148,7 @@ proc nmapScan*(host: string, port: int): string =
 #This proc allows additional low-level control
 proc nmapScan*(host: string, port: int,
                 dType: Domain, sType: SockType, pType: Protocol):
-                string =
+                string {.discardable.} =
    try:
       if pType == UDP:
          var sock = newSocket()
