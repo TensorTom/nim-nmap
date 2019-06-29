@@ -127,23 +127,23 @@ proc nmapScan*(host: string, port: int): string {.discardable.} =
             var sock = newSocket(IPv4, STREAM, TCP)
             sock.connect(host, Port(m), 100 * 1)
             let sPort = intToStr(m)
-            echo host & " Connected succesfully on " & sPort
+            return host & " Connected succesfully on " & sPort
             sock.close()
          except:
             let ErrorMsg = getCurrentExceptionMsg()
             let sPort = intToStr(m)
-            echo host & " " & ErrorMsg &  " on " & sPort
+            return host & " " & ErrorMsg &  " on " & sPort
    else:
       try:
          var sock = newSocket(IPv4, STREAM, TCP)
          sock.connect(host, Port(port))
          let sPort = intToStr(port)
-         echo host & " Connected succesfully on " & sPort
+         return host & " Connected succesfully on " & sPort
          sock.close()
       except:
          let ErrorMsg = getCurrentExceptionMsg()
          let sPort = intToStr(port)
-         echo host & " " & ErrorMsg &  " on " & sPort
+         return host & " " & ErrorMsg &  " on " & sPort
 
 #This proc allows additional low-level control
 proc nmapScan*(host: string, port: int,
@@ -154,7 +154,7 @@ proc nmapScan*(host: string, port: int,
          var sock = newSocket()
 #         discard sock.sendTo(host, Port(port), "status\n")
 #         let recPacket = sock.recvLine(1024)#TODO Work on sending and receiving data from Packets
-#         echo sizeOf(recPacket)#TODO
+#         return sizeOf(recPacket)#TODO
       else:
          var sock = newSocket(dType, sType, pType)#Allow control over Domain, SockType, and Protocol
          sock.connect(host, Port(port))
@@ -162,12 +162,12 @@ proc nmapScan*(host: string, port: int,
          echo host & " Connected succesfully on " & sPort
          sock.send("bbHHh")
          let recPacket = sock.recv(1024, timeout=2000, flags={SocketFlag.Peek, SocketFlag.SafeDisconn})
-         echo sizeOf(recPacket)
+         return sizeOf(recPacket)
          sock.close()
    except:
      let ErrorMsg = getCurrentExceptionMsg()
      let sPort = intToStr(port)
-     echo host & " " & ErrorMsg &  " on " & sPort
+     return host & " " & ErrorMsg &  " on " & sPort
 
 proc nmapHostDisc*(): (string) {.discardable.} =
    var v = 1
