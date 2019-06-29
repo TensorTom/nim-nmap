@@ -138,8 +138,8 @@ proc nmapScan*(host: string, port: int): string {.discardable.} =
          var sock = newSocket(IPv4, STREAM, TCP)
          sock.connect(host, Port(port))
          let sPort = intToStr(port)
-         return host & " Connected succesfully on " & sPort
          sock.close()
+         return host & " Connected succesfully on " & sPort
       except:
          let ErrorMsg = getCurrentExceptionMsg()
          let sPort = intToStr(port)
@@ -162,8 +162,8 @@ proc nmapScan*(host: string, port: int,
          echo host & " Connected succesfully on " & sPort
          sock.send("bbHHh")
          let recPacket = sock.recv(1024, timeout=2000, flags={SocketFlag.Peek, SocketFlag.SafeDisconn})
-         return sizeOf(recPacket)
          sock.close()
+         return sizeOf(recPacket)
    except:
      let ErrorMsg = getCurrentExceptionMsg()
      let sPort = intToStr(port)
