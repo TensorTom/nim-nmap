@@ -120,7 +120,7 @@ proc createMask*(host: string): string {.discardable.} =
       inc(i)
 
 #This proc is standard connect
-proc nmapScan*(host: string, port: int): string {.discardable.} =
+proc nmapScan*(host: string, port: int): string =
    if port == 0:
       for m in portList:
          try:
@@ -148,13 +148,13 @@ proc nmapScan*(host: string, port: int): string {.discardable.} =
 #This proc allows additional low-level control
 proc nmapScan*(host: string, port: int,
                 dType: Domain, sType: SockType, pType: Protocol):
-                string {.discardable.} =
+                string =
    try:
       if pType == UDP:
          var sock = newSocket()
 #         discard sock.sendTo(host, Port(port), "status\n")
 #         let recPacket = sock.recvLine(1024)#TODO Work on sending and receiving data from Packets
-#         return sizeOf(recPacket)#TODO
+#         return $sizeOf(recPacket)#TODO
       else:
          var sock = newSocket(dType, sType, pType)#Allow control over Domain, SockType, and Protocol
          sock.connect(host, Port(port))
@@ -163,7 +163,7 @@ proc nmapScan*(host: string, port: int,
          sock.send("bbHHh")
          let recPacket = sock.recv(1024, timeout=2000, flags={SocketFlag.Peek, SocketFlag.SafeDisconn})
          sock.close()
-         return sizeOf(recPacket)
+         return $sizeOf(recPacket)
    except:
      let ErrorMsg = getCurrentExceptionMsg()
      let sPort = intToStr(port)
