@@ -1,6 +1,5 @@
 # Package
 
-[Package]
 name          = "nmap"
 version       = "0.1.4"
 author        = "blmvxer"
@@ -9,6 +8,4 @@ license       = "MIT"
 srcDir        = "src"
 
 # Dependencies
-
-[Deps]
 requires "nim >= 0.19.0"
